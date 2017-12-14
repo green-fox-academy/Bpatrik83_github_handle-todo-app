@@ -8,10 +8,14 @@ class Controller():
 
 class Model():
     def print_file(self):
-        read_todo = open("todo.txt", "r")
-        read_lines_todo = read_todo.read().split("\n")
-        print(read_lines_todo)
-    pass
+        file_name = "todo.txt"
+        with open(file_name) as file_open:
+            line = file_open.readline()
+            count= 1
+            while line:
+                print("{}: {}".format(count, line.strip()))
+                line = file_open.readline()
+                count += 1
 
 class Display():
     def show_menu(self):
@@ -25,8 +29,10 @@ class Display():
             "-a   Adds a new task\n"
             "-r   Removes a task\n"
             "-c   Completes a task)\n")
-    
+
 
 
 display = Display()
 display.show_menu()
+model = Model()
+model.print_file()
