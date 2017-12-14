@@ -8,8 +8,10 @@ class Controller():
         if len(sys.argv) == 1:
             display.show_menu()
         else:
-            if sys.argv[1] == "-l" and sys.argv[2:] == []:
-                model.print_file()
+            if sys.argv[1] == "-la" and sys.argv[2:] == []:
+                model.print_all_file()
+            elif sys.argv[1] == "-l" and sys.argv[2:] == []:
+                model.print_unfinished_tasks()
             elif sys.argv[1] == "-a":
                 if sys.argv[2:] == []:
                     print("Unable to add: no task provided")
@@ -33,7 +35,7 @@ class Model():
         self.file_name = "todo.txt"
         self.length = self.check_longest_line()
 
-    def print_file(self):
+    def print_all_file(self):
         with open(self.file_name) as file_open:
             if os.stat(self.file_name).st_size == 0:
                 print("No todos for today! :)")
@@ -46,6 +48,21 @@ class Model():
                     print("|" + "-" * (self.length + 6) + "|")
                     line = file_open.readline()
                     count += 1
+
+    def print_unfinished_tasks(self):
+        with open(self.file_name) as file_open:
+            if os.stat(self.file_name).st_size == 0:
+                print("No todos for today! :)")
+            else:
+                line = file_open.readline()
+                print("\n" + "|" + "-" * (self.length + 3) + "|")
+                while line:
+                    if line[1] != "x":
+                        print("| ", line.strip() + " " * (self.length - len(line)), " |")
+                        print("|" + "-" * (self.length + 3) + "|")
+                        line = file_open.readline()
+                    else:
+                        line = file_open.readline()
 
     def add_new_task(self):
         text_append = " ".join(sys.argv[2:])
@@ -103,10 +120,11 @@ class Display():
             "|==========================|\n"
             "| Command line arguments   |\n"
             "|==========================|\n"
-            "| -l   Lists all the tasks |\n"
+            "| -la  Lists all the tasks |\n"
             "| -a   Adds a new task     |\n"
             "| -r   Removes a task      |\n"
             "| -c   Completes a task    |\n"
+            "| -l   Lists undone tasks  |\n"
             "|==========================|\n")
 
 controller = Controller()
