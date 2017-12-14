@@ -1,3 +1,6 @@
-Buy Milk
-Walk the dog
-Walk the tigerthe tiger
+[x] Buy milk
+[ ] Buy milk
+[ ] Buy milk
+[ ] Buy milk
+[ ] Buy milk
+[x] Buy milk
