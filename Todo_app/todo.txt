@@ -3,3 +3,4 @@
 [x] Buy milk
 [x] Buy milk
 [ ] Go home and sleep
+[ ] Finished all exercises

@@ -88,11 +88,11 @@ class Model():
     def check_longest_line(self):
         with open(self.file_name, "r") as open_file:
             lines = open_file.readlines()
-            self.longest_line = len(lines[0])
+            longest_line = len(lines[0])
             for line in lines:
-                if len(line) > self.longest_line:
-                    self.longest_line = len(line)
-        return self.longest_line
+                if len(line) > longest_line:
+                    longest_line = len(line)
+        return longest_line
 
 class Display():
     def show_menu(self):
