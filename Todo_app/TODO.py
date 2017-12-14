@@ -9,8 +9,16 @@ class Controller():
             display.show_menu()
         elif sys.argv[1] == "-l":
             model.print_file()
+        elif sys.argv[1] == "-a":
+            if sys.argv[2:] == []:
+                print("You did not enter anything")
+            else:
+                model.add_new_task()
 
 class Model():
+    def __init__(self):
+        self.file_name = "todo.txt"
+
     def print_file(self):
         self.file_name = "todo.txt"
         with open(self.file_name) as file_open:
@@ -22,9 +30,10 @@ class Model():
                 count += 1
 
     def add_new_task(self):
-        if os.path.exists(self.file_name):  # optional check if file exists
-            with open(self.file_path, 'a') as file:
-                file.write("\n")
+        self.text_append = " ".join(sys.argv[2:])
+        if os.path.exists(self.file_name):
+            with open(self.file_name, 'a') as file:
+                file.write("\n" + self.text_append)
 
 class Display():
     def show_menu(self):
