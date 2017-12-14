@@ -11,7 +11,7 @@ class Controller():
             model.print_file()
         elif sys.argv[1] == "-a":
             if sys.argv[2:] == []:
-                print("You did not enter anything")
+                print("Unable to add: no task provided")
             else:
                 model.add_new_task()
 
@@ -20,20 +20,22 @@ class Model():
         self.file_name = "todo.txt"
 
     def print_file(self):
-        self.file_name = "todo.txt"
         with open(self.file_name) as file_open:
-            line = file_open.readline()
-            count= 1
-            while line:
-                print("{} - {}".format(count, line.strip()))
+            if os.stat(self.file_name).st_size == 0:
+                print("No todos for today! :)")
+            else:
                 line = file_open.readline()
-                count += 1
+                count= 1
+                while line:
+                    print("{} - {}".format(count, line.strip()))
+                    line = file_open.readline()
+                    count += 1
 
     def add_new_task(self):
         self.text_append = " ".join(sys.argv[2:])
         if os.path.exists(self.file_name):
             with open(self.file_name, 'a') as file:
-                file.write("\n" + self.text_append)
+                file.write(self.text_append + "\n")
 
 class Display():
     def show_menu(self):
