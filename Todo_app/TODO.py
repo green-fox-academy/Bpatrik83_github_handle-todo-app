@@ -43,16 +43,20 @@ class Model():
                 file.write(text_append + "\n")
 
     def remove_task(self):
-        delete_line_index = int(sys.argv[2])
-        with open(self.file_name, "r+") as open_file:
-            lines = open_file.readlines()
-            if len(lines) < delete_line_index:
-                print("Unable to remove: index is out of bound")
-            else:
-                del lines[delete_line_index - 1]
-                open_file.seek(0)
-                open_file.truncate()
-                open_file.writelines(lines)
+        try:
+            delete_line_index = int(sys.argv[2])
+        except ValueError:
+            print("Unable to remove: index is not a number")
+        else:
+            with open(self.file_name, "r+") as open_file:
+                lines = open_file.readlines()
+                if len(lines) < delete_line_index:
+                    print("Unable to remove: index is out of bound")
+                else:
+                    del lines[delete_line_index - 1]
+                    open_file.seek(0)
+                    open_file.truncate()
+                    open_file.writelines(lines)
 
 class Display():
     def show_menu(self):
