@@ -14,6 +14,11 @@ class Controller():
                 print("Unable to add: no task provided")
             else:
                 model.add_new_task()
+        elif sys.argv[1] == "-r":
+            if sys.argv[2:] == []:
+                print("Unable to remove: no index provided")
+            else:
+                model.remove_task()
 
 class Model():
     def __init__(self):
@@ -32,10 +37,22 @@ class Model():
                     count += 1
 
     def add_new_task(self):
-        self.text_append = " ".join(sys.argv[2:])
+        text_append = " ".join(sys.argv[2:])
         if os.path.exists(self.file_name):
             with open(self.file_name, 'a') as file:
-                file.write(self.text_append + "\n")
+                file.write(text_append + "\n")
+
+    def remove_task(self):
+        delete_line_index = int(sys.argv[2])
+        with open(self.file_name, "r+") as open_file:
+            lines = open_file.readlines()
+            if len(lines) < delete_line_index:
+                print("Unable to remove: index is out of bound")
+            else:
+                del lines[delete_line_index - 1]
+                open_file.seek(0)
+                open_file.truncate()
+                open_file.writelines(lines)
 
 class Display():
     def show_menu(self):
