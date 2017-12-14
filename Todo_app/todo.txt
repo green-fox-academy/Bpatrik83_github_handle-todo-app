@@ -1,6 +1,5 @@
 [x] Buy milk
-[ ] Buy milk
-[ ] Buy milk
-[ ] Buy milk
-[ ] Buy milk
+[ ] Walk the dog
 [x] Buy milk
+[x] Buy milk
+[ ] Go home and sleep

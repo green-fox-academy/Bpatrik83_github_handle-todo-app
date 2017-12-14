@@ -31,6 +31,7 @@ class Controller():
 class Model():
     def __init__(self):
         self.file_name = "todo.txt"
+        self.length = self.check_longest_line()
 
     def print_file(self):
         with open(self.file_name) as file_open:
@@ -39,8 +40,10 @@ class Model():
             else:
                 line = file_open.readline()
                 count= 1
+                print("\n" + "|" + "-" * (self.length + 6) + "|")
                 while line:
-                    print("{} - {}".format(count, line.strip()))
+                    print("| ", str(count) + ".", line.strip() + " " * (self.length - len(line)), " |")
+                    print("|" + "-" * (self.length + 6) + "|")
                     line = file_open.readline()
                     count += 1
 
@@ -82,18 +85,35 @@ class Model():
                     open_file.truncate()
                     open_file.writelines(lines)
 
+
+    def check_longest_line(self):
+        with open(self.file_name, "r") as open_file:
+            lines = open_file.readlines()
+            self.longest_line = len(lines[0])
+            for line in lines:
+                if len(line) > self.longest_line:
+                    self.longest_line = len(line)
+        return self.longest_line
+
+
+
 class Display():
     def show_menu(self):
         print(
             "\n"
-            "Python Todo application\n"
-            "=======================\n"
-            "\n"
-            "Command line arguments:\n"
-            "-l   Lists all the tasks\n"
-            "-a   Adds a new task\n"
-            "-r   Removes a task\n"
-            "-c   Completes a task)\n")
+            "|==========================|\n"
+            "| Python Todo application  |\n"
+            "|==========================|\n"
+            "| Command line arguments   |\n"
+            "|==========================|\n"
+            "| -l   Lists all the tasks |\n"
+            "| -a   Adds a new task     |\n"
+            "| -r   Removes a task      |\n"
+            "| -c   Completes a task    |\n"
+            "|==========================|\n")
 
 controller = Controller()
 controller.controll_argv()
+
+model = Model()
+model.check_longest_line()
