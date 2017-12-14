@@ -111,6 +111,3 @@ class Display():
 
 controller = Controller()
 controller.controll_argv()
-
-model = Model()
-model.check_longest_line()
